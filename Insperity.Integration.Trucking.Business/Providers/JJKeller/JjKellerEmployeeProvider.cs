@@ -25,6 +25,7 @@ namespace Insperity.Integration.Trucking.Business.Providers.JJKeller
 
         public async Task DeleteEmployee(Employee employee)
         {
+            await Task.CompletedTask;
             throw new NotSupportedException("JJ Keller does not support deleting employees.");
         }
     }

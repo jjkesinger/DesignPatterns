@@ -3,12 +3,18 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Insperity.Integration.Trucking.Business;
 using Insperity.Integration.Trucking.Business.Clients;
+using Insperity.Integration.Trucking.Business.Clients.KeepTruckin;
 using Insperity.Integration.Trucking.Business.Events;
 using Insperity.Integration.Trucking.Business.Events.Employee;
 using Insperity.Integration.Trucking.Business.Model;
 using Insperity.Integration.Trucking.Business.Providers;
 using Insperity.Integration.Trucking.Business.Providers.KeepTruckin;
+using Insperity.Integration.Trucking.Business.Serialization;
+using Insperity.Integration.Trucking.Business.ServiceBus;
+using Insperity.Integration.Trucking.Business.ServiceBus.Azure;
 using Insperity.Integration.Trucking.Core;
+using Insperity.Integration.Trucking.Core.Configuration;
+using Insperity.Integration.Trucking.Core.Configuration.ServiceBus;
 using Insperity.Integration.Trucking.Test.Fakes;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
@@ -146,6 +152,20 @@ namespace Insperity.Integration.Trucking.Test.Business.Provider
             //Assert
             employeeProvider.Verify(f => f.DeleteEmployee(_employeeWithProviders), Times.Once);
             logger.Verify(f => f.LogMessage(e), Times.Once);
+        }
+
+        [TestMethod]
+        public async Task KeepTruckinServiceBusWriteClientShouldSerializeXml()
+        {
+            var handler = new Mock<IServiceBusMessageHandler>();
+            var employeeConfig = new EmployeeConfiguration(new KeepTruckinServiceBusConfiguration());
+
+            var x = new KeepTruckinServiceBusWriteClient<Employee>(employeeConfig, new ApplicationXmlSerializer<Employee>(),
+                handler.Object);
+
+            await x.Add(_employeeWithProviders);
+
+            handler.Verify(f=>f.SendMessage(It.IsAny<object>()), Times.Once);
         }
     }
 }

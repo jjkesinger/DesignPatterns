@@ -152,6 +152,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Clients\HttpClientFactory.cs" />
+    <Compile Include="ServiceBus\Azure\AzureServiceBusMessageHandler.cs" />
+    <Compile Include="ServiceBus\IServiceBusMessageHandler.cs" />
     <Compile Include="Serialization\TextXmlSerializer.cs" />
     <Compile Include="Serialization\ClientSerializer.cs" />
     <Compile Include="Clients\HttpWriteClient.cs" />

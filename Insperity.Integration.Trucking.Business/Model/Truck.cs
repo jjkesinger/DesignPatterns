@@ -1,5 +1,8 @@
-﻿namespace Insperity.Integration.Trucking.Business.Model
+﻿using System;
+
+namespace Insperity.Integration.Trucking.Business.Model
 {
+    [Serializable]
     public class Truck : Entity
     {
         public Truck() { }
