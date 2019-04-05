@@ -5,7 +5,7 @@ namespace Insperity.Integration.Trucking.Business.Model
     [Serializable]
     public class KeepTruckinEldProvider : EldProvider
     {
-        public KeepTruckinEldProvider() : base(IntegrationProvider.Geotab) { }
+        public KeepTruckinEldProvider() : base(IntegrationProvider.KeepTruckin) { }
         public KeepTruckinEldProvider(string apiKey) : base(IntegrationProvider.KeepTruckin)
         {
             if (string.IsNullOrEmpty(apiKey))
