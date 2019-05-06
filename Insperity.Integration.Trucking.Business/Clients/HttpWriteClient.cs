@@ -68,7 +68,7 @@ namespace Insperity.Integration.Trucking.Business.Clients
 
         private HttpContent GetHttpContent(T entity)
         {
-            //using the strategy pattern to eliminate need for switch statement
+            //using the strategy pattern to eliminate need for switch statement -also could be considered Bridge
             //base on serialization used.
             return new StringContent(_serializer.Serialize(entity), _serializer.Encoding, _serializer.MediaType);
         }

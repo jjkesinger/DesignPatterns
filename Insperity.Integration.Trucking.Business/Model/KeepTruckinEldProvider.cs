@@ -14,6 +14,6 @@ namespace Insperity.Integration.Trucking.Business.Model
             ApiKey = apiKey;
         }
 
-        public string ApiKey { get; }
+        public string ApiKey { get; set; }
     }
 }

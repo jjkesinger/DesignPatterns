@@ -69,15 +69,16 @@ namespace Insperity.Integration.Trucking.Test.Load
             await Task.WhenAll(tasks);
             sw.Stop();
 
-            var addCnt = FakeLogger.Dictionary[e];
-            var updateCnt = FakeLogger.Dictionary[g];
-            var deleteCnt = FakeLogger.Dictionary[f];
+            FakeLogger.Dictionary.TryGetValue(e, out var addCnt);
+            FakeLogger.Dictionary.TryGetValue(g, out var updateCnt);
+            FakeLogger.Dictionary.TryGetValue(f, out var deleteCnt);
             var hasHEvents = FakeLogger.Dictionary.TryGetValue(h, out var hCnt);
 
             Assert.AreEqual(1000, addCnt);
             Assert.AreEqual(333, updateCnt);
             Assert.AreEqual(667, deleteCnt);
             Assert.IsFalse(hasHEvents);
+            Assert.AreEqual(0, hCnt);
             Assert.IsTrue(sw.Elapsed.TotalSeconds < 60);
         }
     }
